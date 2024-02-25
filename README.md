@@ -58,8 +58,101 @@ Find out for yourself what the Matlab function **_find_** does.  Comment on the 
 
 Test this procedure again with the second template image **_'template2.tif'_**.
 
-It is clear that NCC is only useful if the match between template and image is exact or nearly exact. 
+It is clear that NCC can only match a template to an image if the match is exact or nearly exact.
+
+## Task 3: SIFT Feature Detection
+
+Let us now try to apply the SIFT detector provided by Matlab through the function **_detectSIFTFeastures( )_** on the Dali painting that we used in task 2.
+
+```
+clear all; close all;
+I = imread('assets/salvador.jpg');
+f = im2gray(I);
+points = detectSIFTFeatures(f);
+figure(1); imshow(I);
+hold on;
+plot(points.selectStrongest(100));
+```
+>Comment on the results.
+>Explore and explain the contents of the data structure *_points_*. You may want to consult this [Matlab page](https://uk.mathworks.com/help/vision/ref/siftpoints.html) about SIFT Interesting Points.
+
+>Find the SIFT points for the image **_'cafe_van_gogh.jpg'_**.
+
+> Explore these other methods of feature detection provided by Matlab in their toolboxes.
+
+## Task 4: SIFT matching
+
+We will now use SIFT features from two different scales of the same van Gogh painting to see how well SIFT manage to match the features that are of different scales (or sizes).
+
+Enter the following:
+
+```
+clear all; close all;
+I1 = imread('assets/cafe_van_gogh.jpg');
+I2 = imresize(I1, 0.5);
+f1 = im2gray(I1);
+f2 = im2gray(I2);
+points1 = detectSIFTFeatures(f1);
+points2 = detectSIFTFeatures(f2);
+Nbest = 100;
+bestFeatures1 = points1.selectStrongest(Nbest);
+bestFeatures2 = points2.selectStrongest(Nbest);
+figure(1); imshow(I1);
+hold on;
+plot(bestFeatures1);
+hold off;
+figure(2); imshow(I2);
+hold on;
+plot(bestFeatures2);
+hold off;
+```
+The code above find the Nbest features found by SIFT and overlay them onto the two images.
+
+>How successful do you think SIFT has managed to detect features for these two images (one is a quarter of the size of the other)?
+
+## Task 4: SIFT matching - scale and rotation invariant
+
+The arrays *_points1_* and *_points2_* contains the interesting points in the two images.  We now want to match the best *_Nbest_* points between the two sets. This is achieved as below:
+
+```
+[features1, valid_points1] = extractFeatures(f1, points1);
+[features2, valid_points2] = extractFeatures(f2, points2);
+
+ indexPairs = matchFeatures(features1, features2, 'Unique', true);
+
+ matchedPoints1 = valid_points1(indexPairs(:,1),:);
+ matchedPoints2 = valid_points2(indexPairs(:,2),:);
+ figure(3);
+ showMatchedFeatures(f1,f2,matchedPoints1,matchedPoints2);
+```
+Comment on the results.
+Now replace:
+```
+[features1, valid_points1] = extractFeatures(f1, points1);
+```
+with:
+```
+[features1, valid_points1] = extractFeatures(f1, bestFeatures1);
+```
+Comment on the results.
+
+Next, rotate the smaller image by 20 degrees using the Matlab function **_imrotate( )_** and show that indeed SIFT is rotation invariant.
 
 
+## Task 5: SIFT vs SURF
 
-https://uk.mathworks.com/help/vision/ug/point-feature-types.html#bukg_4d
+In addition to SIFT, there are other recently developed methods to detect features. These include:
+* SURF
+* KAZE
+* BRISK
+and others.  You will find these methods listed [here](https://uk.mathworks.com/help/vision/ug/local-feature-detection-and-extraction.html).
+
+Let us now try to match two images from a video sequence of motorway traffic wtih cars moving bewteen frames.  The two still images are stored as *_'traffic_1.jpg'_* and *_'traffic_2.jpg'_*.  
+
+Use the same program in Task 4 to find the matching points between these two frames using SIFT.   Comment on the results.
+
+Now change the algorithm from SIFT to SURF, and see what the difference in the matching results.
+
+What you have just done is to apply SIFT and SURF feature detection to perform object tracking between successive frames in a video.
+
+
