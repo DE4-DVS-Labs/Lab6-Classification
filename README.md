@@ -138,8 +138,7 @@ Comment on the results.
 
 Next, rotate the smaller image by 20 degrees using the Matlab function **_imrotate( )_** and show that indeed SIFT is rotation invariant.
 
-
-## Task 5: SIFT vs SURF
+## Task 5: SIFT vs SURF
 
 In addition to SIFT, there are other recently developed methods to detect features. These include:
 * SURF
