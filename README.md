@@ -110,7 +110,9 @@ The code above find the Nbest features found by SIFT and overlay them onto the t
 
 >How successful do you think SIFT has managed to detect features for these two images (one is a quarter of the size of the other)?
 
-## Task 4: SIFT matching - scale and rotation invariant
+
+
+## Task 4: SIFT matching - scale and rotation invariance
 
 The arrays *_points1_* and *_points2_* contains the interesting points in the two images.  We now want to match the best *_Nbest_* points between the two sets. This is achieved as below:
 
