@@ -166,17 +166,17 @@ Enter the following:
 % Lab 6 Task 6 
 % Object recognition using webcam and various neural network models
 
-camera = webcam;
-net = google;               % change this for other networks
-inputSize = net.Layers(1).InputSize(1:2);
+camera = webcam;                            % create camera object for webcam
+net = google;                               % change this for other networks
+inputSize = net.Layers(1).InputSize(1:2);   % find neural network input size
 figure 
-I = snapshot(camera);
+I = snapshot(camera);      
 image(I);
-f = imresize(I, inputSize);
-tic;                        % mark start time
-[label, score] = classify(net,f);
-toc                         % report elapsed time
-title({char(label), num2str(max(score),2)});
+f = imresize(I, inputSize);                 % resize image to match network
+tic;                                        % mark start time
+[label, score] = classify(net,f);           % classify f with neural network net
+toc                                         % report elapsed time
+title({char(label), num2str(max(score),2)}); % label object
 ```
 
 > Use the webcam to try to recognize different objects.  Also try to find the accuracy and speed of recogniture for different networks.
