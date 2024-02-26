@@ -184,4 +184,5 @@ title({char(label), num2str(max(score),2)});
 You may also want to read and explore these online documents that accompany Matlab:
 
 [Deep learning in Matlab](https://uk.mathworks.com/help/deeplearning/ug/deep-learning-in-matlab.html)
+
 [Pretrained CNN](https://uk.mathworks.com/help/deeplearning/ug/pretrained-convolutional-neural-networks.html)
