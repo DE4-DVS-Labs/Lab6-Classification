@@ -155,3 +155,33 @@ Now change the algorithm from SIFT to SURF, and see what the difference in the m
 What you have just done is to apply SIFT and SURF feature detection to perform object tracking between successive frames in a video.
 
 
+## Task 6: Image recognition using neural networks
+
+This task requires you to install a number of packages on Matlab beyond what you already have on your systems.  You will be using a USB webcam (five a available for you to borrow and share), and for this to work, you will need to install the camera support package for your machine (either Mac or PC).  You will also need to install the specific neural network model (e.g. AlexNet) on your machines.
+
+Enter the following:
+```
+% Lab 6 Task 6 
+% Object recognition using webcam and various neural network models
+
+camera = webcam;
+net = google;               % change this for other networks
+inputSize = net.Layers(1).InputSize(1:2);
+figure 
+I = snapshot(camera);
+image(I);
+f = imresize(I, inputSize);
+tic;                        % mark start time
+[label, score] = classify(net,f);
+toc                         % report elapsed time
+title({char(label), num2str(max(score),2)});
+```
+
+> Use the webcam to try to recognize different objects.  Also try to find the accuracy and speed of recogniture for different networks.
+>
+> Modify this code so that you capture and recognize object in a continous loop.
+
+You may also want to read and explore these online documents that accompany Matlab:
+
+[Deep learning in Matlab](https://uk.mathworks.com/help/deeplearning/ug/deep-learning-in-matlab.html)
+[Pretrained CNN](https://uk.mathworks.com/help/deeplearning/ug/pretrained-convolutional-neural-networks.html)
