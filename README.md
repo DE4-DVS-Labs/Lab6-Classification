@@ -150,9 +150,9 @@ and others.  You will find these methods listed [here](https://uk.mathworks.com/
 
 Let us now try to match two images from a video sequence of motorway traffic wtih cars moving bewteen frames.  The two still images are stored as *_'traffic_1.jpg'_* and *_'traffic_2.jpg'_*.  
 
-Use the same program in Task 4 to find the matching points between these two frames using SIFT.   Comment on the results.
+>Use the same program in Task 4 to find the matching points between these two frames using SIFT.   Comment on the results.
 
-Now change the algorithm from SIFT to SURF, and see what the difference in the matching results.
+>Now change the algorithm from SIFT to SURF, and see what the difference in the matching results.
 
 What you have just done is to apply SIFT and SURF feature detection to perform object tracking between successive frames in a video.
 
