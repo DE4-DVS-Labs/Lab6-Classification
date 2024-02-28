@@ -5,13 +5,13 @@ This laboratory session is designed to support the contents of Lectures 10 and 1
 
 ## Task 1: Image resizing
 
-The following image is the famous painting by van Gogh called 'Cafe Terrace at Night', which can be found in the file **_'cafe_van_gogh.jpg'_** in the assets folder.  
+The following image is the famous painting by van Gogh called 'Cafe Terrace at Night', which can be found in the file *_'cafe_van_gogh.jpg'_* in the _'assets'_ folder.  
 
 <p align="center"> <img src="assets/cafe_van_gogh.jpg" /> </p>
 
-Write a Matlab program to read this file and build the image pyramid by resize the image by a factor of 1/2, 1/4, 1/8, 1/16 and 1/32 by drop every other rows and columns.  Then display all six images as a montage of size [2 3]. 
+>Write a Matlab program to read this file and build the image pyramid by resize the image by a factor of 1/2, 1/4, 1/8, 1/16 and 1/32 by drop every other rows and columns.  Then display all six images as a montage of size [2 3]. 
 
-To drop every other rows and columns in an image, you can use a power Matlab syntax: (start: increment: end) for the next.  Try this Matlab command:
+To drop every other rows and columns in an image, you can use this Matlab syntax: (start: increment: end) to slice the matrix.  Try this Matlab command:
 
 ```
 1:2:10
@@ -20,9 +20,11 @@ To drop every other rows and columns in an image, you can use a power Matlab syn
 The first command returns the values: 1, 3, 5, 7 and 9.
 The second command returns the values: 1, 4, 7, 10.
 
-Matlab provides a proper image resizign function **_imresize(I, scale)_** where I is the input image and scale is the factor to resize.  So 0.5 means the image is reduced by a factor of 2. This function first filter the image by a lowpass filter (Gaussian) that remove the high frequency components before subsampling by skipping pixels.  This prevent aliasing and the introdduction of artifacts.
+Matlab provides a proper image resizign function **_imresize(I, scale)_** where I is the input image and scale is the factor to resize.  So 0.5 means the image is reduced by a factor of 2. This function first filter the image by a lowpass filter (Gaussian) that removes the high frequency components before subsampling by skipping pixels.  This prevents aliasing and the introdduction of artifacts.
 
-Repeat the above exercise by adding code to properly resize the image with the **_imresize_** function.
+>Repeat the above exercise by adding code to properly resize the image with the **_imresize_** function.
+
+Compare the results from the two approach to subsampling.
 
 ## Task 2: Pattern Matching with Normalized Cross Correlation
 
@@ -40,7 +42,7 @@ surf(c)
 shading interp
 ```
 
-Try this code and explore the correlation between the template and the image.  You should be able manually locate the position of the template in the image. This will be the location that the normalized cross correlation value = 1.0, i.e. an exact match.
+>Try this code and explore the NCC plot between the template and the image.  You should be able manually locate the position of the template from the plot. This will be the location where the normalized cross correlation value = 1.0, i.e. an exact match.
 
 Now we want to detect the peak location automatically. This is achieve with:
 
@@ -54,15 +56,15 @@ drawrectangle(gca,'Position', ...
     [xoffSet,yoffSet,size(w,2),size(w,1)], 'FaceAlpha',0);
 ```
 
-Find out for yourself what the Matlab function **_find_** does.  Comment on the results.
-
-Test this procedure again with the second template image **_'template2.tif'_**.
+>Find out for yourself what the Matlab function **_find( )_** does.  Comment on the results.
+>
+>Test this procedure again with the second template image **_'template2.tif'_**.
 
 It is clear that NCC can only match a template to an image if the match is exact or nearly exact.
 
 ## Task 3: SIFT Feature Detection
 
-Let us now try to apply the SIFT detector provided by Matlab through the function **_detectSIFTFeastures( )_** on the Dali painting that we used in task 2.
+Let us now try to apply the SIFT detector provided by Matlab through the function **_detectSIFTFeastures( )_** on the Dali painting that we used in task 1.
 
 ```
 clear all; close all;
@@ -74,17 +76,19 @@ hold on;
 plot(points.selectStrongest(100));
 ```
 >Comment on the results.
->Explore and explain the contents of the data structure *_points_*. You may want to consult this [Matlab page](https://uk.mathworks.com/help/vision/ref/siftpoints.html) about SIFT Interesting Points.
+>Explore and explain the contents of the data structure *_points_*. 
+
+You may want to consult this [Matlab page](https://uk.mathworks.com/help/vision/ref/siftpoints.html) about SIFT Interesting Points.
 
 >Find the SIFT points for the image **_'cafe_van_gogh.jpg'_**.
-
-> Explore these other methods of feature detection provided by Matlab in their toolboxes.
+>
+> Explore  other methods of feature detection provided by Matlab provided in their toolboxes.
 
 ## Task 4: SIFT matching
 
 We will now use SIFT features from two different scales of the same van Gogh painting to see how well SIFT manage to match the features that are of different scales (or sizes).
 
-Enter the following:
+Run the following Matlab script:
 
 ```
 clear all; close all;
@@ -106,15 +110,15 @@ hold on;
 plot(bestFeatures2);
 hold off;
 ```
-The code above find the Nbest features found by SIFT and overlay them onto the two images.
 
->How successful do you think SIFT has managed to detect features for these two images (one is a quarter of the size of the other)?
+The code above finds the _Nbest_ features using SIFT in each iage and overlay the features as cicles onto the image.
 
+>How successful do you think SIFT has managed to detect features for these two images (one is a quarter of the size of the other)?  What conclusions can you make?
 
 
 ## Task 4: SIFT matching - scale and rotation invariance
 
-The arrays *_points1_* and *_points2_* contains the interesting points in the two images.  We now want to match the best *_Nbest_* points between the two sets. This is achieved as below:
+The arrays *_points1_* and *_points2_* contains the interest points in the two images.  We now want to match the best *_Nbest_* points between the two sets. This is achieved as below:
 
 ```
 [features1, valid_points1] = extractFeatures(f1, points1);
@@ -127,7 +131,9 @@ The arrays *_points1_* and *_points2_* contains the interesting points in the tw
  figure(3);
  showMatchedFeatures(f1,f2,matchedPoints1,matchedPoints2);
 ```
+
 Comment on the results.
+
 Now replace:
 ```
 [features1, valid_points1] = extractFeatures(f1, points1);
@@ -138,11 +144,11 @@ with:
 ```
 Comment on the results.
 
-Next, rotate the smaller image by 20 degrees using the Matlab function **_imrotate( )_** and show that indeed SIFT is rotation invariant.
+>Next, rotate the smaller image by 20 degrees using the Matlab function **_imrotate( )_** and show that indeed SIFT is rotation invariant.
 
 ## Task 5: SIFT vs SURF
 
-In addition to SIFT, there are other recently developed methods to detect features. These include:
+In addition to SIFT, there are other subsequently developed methods to detect features. These include:
 * SURF
 * KAZE
 * BRISK
@@ -151,15 +157,15 @@ and others.  You will find these methods listed [here](https://uk.mathworks.com/
 Let us now try to match two images from a video sequence of motorway traffic wtih cars moving bewteen frames.  The two still images are stored as *_'traffic_1.jpg'_* and *_'traffic_2.jpg'_*.  
 
 >Use the same program in Task 4 to find the matching points between these two frames using SIFT.   Comment on the results.
-
->Now change the algorithm from SIFT to SURF, and see what the difference in the matching results.
+>
+>Now change the algorithm from SIFT to SURF, and see what the differences in the results.
 
 What you have just done is to apply SIFT and SURF feature detection to perform object tracking between successive frames in a video.
 
 
 ## Task 6: Image recognition using neural networks
 
-This task requires you to install a number of packages on Matlab beyond what you already have on your systems.  You will be using a USB webcam (five a available for you to borrow and share), and for this to work, you will need to install the camera support package for your machine (either Mac or PC).  You will also need to install the specific neural network model (e.g. AlexNet) on your machines.
+This task requires you to install a number of packages on Matlab beyond what you already have on your system.  You will be using a USB webcam (five are available for you to borrow and share), and for this to work, you will need to install the camera support package for your machine (either Mac or PC).  You will also need to install the specific neural network model (e.g. AlexNet) onto your machines.
 
 Enter the following:
 ```
