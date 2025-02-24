@@ -165,7 +165,7 @@ What you have just done is to apply SIFT and SURF feature detection to perform o
 
 ## Task 6: Image recognition using neural networks
 
-This task requires you to install a number of packages on Matlab beyond what you already have on your system.  You will using either your laptop camera or, if you use an iPhone, use the camera on the iPhone.  For this task, you will need to install the camera support package for your machine (either Mac or PC).  You will also need to install the specific neural network model (e.g. AlexNet) onto your machines.
+This task requires you to install a number of packages on Matlab beyond what you already have on your system.  You will be using either your laptop camera or, if you use an iPhone, use the camera on the iPhone.  For this task, you will need to install the camera support package for your machine (either Mac or PC).  You will also need to install the specific neural network model (e.g. AlexNet) onto your machines.
 
 Enter the following:
 ```
